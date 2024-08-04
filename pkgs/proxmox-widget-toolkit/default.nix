@@ -39,6 +39,12 @@ stdenv.mkDerivation rec {
     cp api-viewer/APIViewer.js $out/share/javascript/proxmox-widget-toolkit
   '';
 
+  # https://github.com/community-scripts/ProxmoxVE/blob/0c4658394dc78813e7929e2cc7b5dab8f431dabf/tools/pve/post-pve-install.sh#L545
+  postFixup = ''
+    sed -i -e "/data\.status/ s/!//" -e "/data\.status/ s/active/NoMoreNagging/" $out/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+    grep -q NoMoreNagging $out/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+  '';
+
   passthru.updateScript = pve-update-script { };
 
   meta = with lib; {
