@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
   
 
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/e/edk2/ovmf_2024.05-1_all.deb";
-      sha256 = "sha256-qIUJwmbNCRV8nSxTN/fkrydrzbnzyuLVjldL++Qym2Y=";
+      url = "http://ftp.debian.org/debian/pool/main/e/edk2/ovmf_2024.05-2_all.deb";
+      sha256 = "sha256-A5MK+7fy9VO425tMBSnIWJ44AOqKktrB1hiTlhRJ1q8=";
     };
 
     unpackPhase = ''
