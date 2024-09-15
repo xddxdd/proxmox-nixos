@@ -106,7 +106,7 @@ Do not override the `nixpkgs-stable` input of the flake, as the only tested and 
 
 To get internet in your VMs, you need to add a network device to the VM, connected to a bridge. To get this working, follow this 2 steps:
 
-1. Create the bridge in `System->Network->Create->Linux Bridge`. This operation has no effect on your system and is just a quirk for Proxmox to know the existence of your bridge.
+1. Set the list of bridges in `services.proxmox-ve.bridges` option. This is the list of bridges that will be visible in Proxmox web interface. Note that this option doesn't affect your OS level network config in any way.
 2. Configure your networking through NixOS configuration so that the bridge you created in the Proxmox web interface actually exists!
 
 ### Example NixOS networking configurations
@@ -116,6 +116,10 @@ Any kind of advanced networking configuration is possible through the usual NixO
 #### With `systemd-networkd`
 
 ```nix
+# Make vmbr0 bridge visible in Proxmox web interface
+services.proxmox-ve.bridges = [ "vmbr0" ];
+
+# Actually set up the vmbr0 bridge
 systemd.network.networks."10-lan" = {
     matchConfig.Name = [ "ens18" ];
     networkConfig = {
@@ -143,6 +147,10 @@ systemd.network.networks."10-lan-bridge" = {
 ### With scripted networking
 
 ```nix
+# Make vmbr0 bridge visible in Proxmox web interface
+services.proxmox-ve.bridges = [ "vmbr0" ];
+
+# Actually set up the vmbr0 bridge
 networking.bridges.vmbr0.interfaces = [ "ens18" ];
 networking.interfaces.vmbr0.useDHCP = lib.mkDefault true;
 ```
