@@ -17,6 +17,7 @@ in
   ];
 
   imports = [
+    ./bridges.nix
     ./ceph.nix
     ./cluster.nix
     # ./firewall.nix
