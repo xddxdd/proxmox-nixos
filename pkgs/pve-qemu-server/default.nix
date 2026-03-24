@@ -70,6 +70,8 @@ perl540.pkgs.toPerlModule (
 
     sourceRoot = "${src.name}/src";
 
+    patches = [ ./virtiofs-force-inode-handles.patch ];
+
     postPatch = ''
       sed -i {qmeventd/,bin/}Makefile \
         -e "/GITVERSION/d" \
