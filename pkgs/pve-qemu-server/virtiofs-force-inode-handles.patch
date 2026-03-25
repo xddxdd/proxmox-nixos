@@ -1,13 +1,11 @@
 diff --git a/PVE/QemuServer/Virtiofs.pm b/PVE/QemuServer/Virtiofs.pm
-index b181db5f..602cdf55 100644
+index b181db5f..66f10dc5 100644
 --- a/PVE/QemuServer/Virtiofs.pm
 +++ b/PVE/QemuServer/Virtiofs.pm
-@@ -183,7 +183,10 @@ sub start_virtiofsd {
-             push @$cmd, '--announce-submounts';
+@@ -184,6 +184,9 @@ sub start_virtiofsd {
              push @$cmd, '--allow-direct-io' if $virtiofs->{'direct-io'};
              push @$cmd, '--cache=' . $virtiofs->{cache} if $virtiofs->{cache};
--            push @$cmd, '--inode-file-handles=prefer' if $prefer_inode_fh;
-+            push @$cmd, '--inode-file-handles=mandatory';
+             push @$cmd, '--inode-file-handles=prefer' if $prefer_inode_fh;
 +            push @$cmd, '--rlimit-nofile=16777216';
 +            push @$cmd, '--thread-pool-size=8';
 +            push @$cmd, '--writeback';
